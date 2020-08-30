@@ -1,38 +1,61 @@
-.App {
-  text-align: center;
+body {
+  background-color: #5d8e94;
+  font-family: Arial, Helvetica, sans-serif;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav-bar {
+  background-color: #326a7d;
+  color: white;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  padding: 20px;
+}
+.nav-bar input {
+  border: none;
+  border-radius: 10px;
+  font-size: 1em;
+  outline: none;
+  padding: 12px;
+  width: 30vw;
+}
+.code-container {
+  border-radius: 10px;
+  padding: 3px 23px;
+  margin: 30px 50px;
+}
+.code-container.git {
+  background-color: #f6f8fa;
+  color: #24292e;
+}
+.code-container.react {
+  background-color: #61dbfb;
+  color: #303030;
+}
+.code-container.vue {
+  background-color: #41b883;
+  color: #24292e;
+}
+.code-container.firebase {
+  background-color: #ffca28;
+  color: #f57c00;
+}
+.code-container.node {
+  background-color: #3c873a;
+  color: #303030;
+}
+.code-panel {
+  border-radius: 10px;
+  background-color: #4b4b4b;
   color: white;
+  margin-bottom: 20px;
+  padding: 10px 70px 10px 20px;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo {
+  background-color: #FFF;
+  border-radius: 20px;
+  height: 20px;
+  margin-left: 8px;
+  padding: 3px;
+  transform: translateY(8px);
+  width: 20px;
 }

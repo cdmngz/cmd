@@ -1,25 +1,83 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Fragment, useState } from 'react';
 import './App.css';
 
 function App() {
+  
+  const array = [
+    {
+      lang: 'git',
+      title: 'Iniciar Repositorio GitHub',
+      cmd: ['git init', 'git add .', 'git commit -m "Initial commit"', 'git remote add origin https://github.com/USER/REPOSITORY.git', 'git push -u origin master']
+    },
+    {
+      lang: 'react',
+      title: 'Crear proyecto',
+      cmd: ['npx create-react-app my-app', 'cd my-app', 'npm start']
+    },
+    {
+      lang: 'vue',
+      title: 'Ejecutar servidor local',
+      cmd: ['npm run serve']
+    },
+    {
+      lang: 'firebase',
+      title: 'Deploy Hosting',
+      cmd: ['firebase deploy']
+    },
+    {
+      lang: 'vue',
+      title: 'Ejecutar servidor local',
+      cmd: ['npm run serve']
+    },
+  ]
+
+  const [data, setData] = useState(() => array)
+
+  const handleInputChange = (event) => {
+    let valor = event.target.value
+    setData(array.filter(element => element.lang.toLowerCase().includes(valor.toLowerCase()) || element.title.toLowerCase().includes(valor.toLowerCase())))
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <nav className="nav-bar">
+        <input
+          autoFocus
+          onChange={handleInputChange}
+          name="search"
+          placeholder="Qué deseas buscar?"
+          type="search"
+        />
+      </nav>
+
+      <section>
+        {
+          data.map((element, i) => {
+            return(
+              <div
+                key={i}
+                className={"code-container "+element.lang}
+                >
+                <p><b>{element.title}</b> <img className="logo" src={require(`./assets/${element.lang}.svg`)}/> {element.lang}</p>
+                <div className="code-panel">
+                { 
+                  element.cmd.map((sub, subindex) =>
+                    <pre
+                      className="code-lines"
+                      key={subindex}
+                      >
+                      {sub}
+                    </pre>
+                  )
+                }
+                </div>
+              </div>
+            )
+          })
+        }
+      </section>
+
+    </Fragment>
   );
 }
 
