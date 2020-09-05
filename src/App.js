@@ -21,13 +21,18 @@ function App() {
     },
     {
       lang: 'firebase',
-      title: 'Deploy Hosting',
-      cmd: ['firebase deploy']
+      title: 'Iniciar Firebase',
+      cmd: ['firebase init', 'firebase login']
     },
     {
       lang: 'vue',
       title: 'Ejecutar servidor local',
       cmd: ['npm run serve']
+    },
+    {
+      lang: 'firebase',
+      title: 'Deploy Hosting',
+      cmd: ['firebase deploy']
     },
   ]
 
@@ -45,7 +50,7 @@ function App() {
           autoFocus
           onChange={handleInputChange}
           name="search"
-          placeholder="Qué deseas buscar?"
+          placeholder="Buscar"
           type="search"
         />
       </nav>
@@ -58,7 +63,7 @@ function App() {
                 key={i}
                 className={"code-container "+element.lang}
                 >
-                <p><b>{element.title}</b> <img className="logo" src={require(`./assets/${element.lang}.svg`)}/> {element.lang}</p>
+                <p><b>{element.title}</b> <img className="logo" alt={element.lang} src={require(`./assets/${element.lang}.svg`)}/> {element.lang}</p>
                 <div className="code-panel">
                 { 
                   element.cmd.map((sub, subindex) =>

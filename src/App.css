@@ -12,7 +12,7 @@ body {
 }
 .nav-bar input {
   border: none;
-  border-radius: 10px;
+  border-radius: 5px;
   font-size: 1em;
   outline: none;
   padding: 12px;
@@ -37,7 +37,7 @@ body {
 }
 .code-container.firebase {
   background-color: #ffca28;
-  color: #f57c00;
+  color: #2C384A;
 }
 .code-container.node {
   background-color: #3c873a;
