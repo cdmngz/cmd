@@ -15,7 +15,8 @@ function App() {
   //Functions
   const handleInputChange = (event) => {
     let valor = event.target.value
-    setData(data.filter(element => element.lang.toLowerCase().includes(valor.toLowerCase()) || element.title.toLowerCase().includes(valor.toLowerCase())))
+    console.log(valor);
+    setData(array.filter(element => element.lang.toLowerCase().includes(valor.toLowerCase()) || element.title.toLowerCase().includes(valor.toLowerCase())))
   }
   const clickSearch = () => setAddCode(!addCode)
   const addCodeLine = (event) => (event.target) 
