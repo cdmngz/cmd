@@ -10,7 +10,7 @@ body {
   justify-content: center;
   padding: 20px;
 }
-.nav-bar input {
+.search {
   border: none;
   border-radius: 5px;
   font-size: 1em;
@@ -18,10 +18,26 @@ body {
   padding: 12px;
   width: 30vw;
 }
+.nav-bar .add {
+  border: none;
+  border-radius: 50%;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-size: 1.5em;
+  outline: none;
+  position: absolute;
+  top: 25px;
+  right: 50px;
+}
+.nav-bar .add:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
 .code-container {
+  background-color: #abd4fa;
   border-radius: 10px;
-  padding: 3px 23px;
   margin: 30px 50px;
+  padding: 3px 23px;
 }
 .code-container.git {
   background-color: #f6f8fa;
@@ -50,13 +66,16 @@ body {
 .code-panel {
   border-radius: 10px;
   background-color: #4b4b4b;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   color: white;
   margin-bottom: 20px;
-  padding: 10px 70px 10px 20px;
+  overflow: auto;
+  padding: 10px 20px;
 }
 .logo {
   background-color: #FFF;
   border-radius: 20px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   height: 20px;
   margin-left: 8px;
   padding: 2px;

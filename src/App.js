@@ -1,86 +1,71 @@
 import React, { Fragment, useState } from 'react';
 import './App.css';
+import array from './Data'
 
 function App() {
-  
-  const array = [
-    {
-      lang: 'git',
-      title: 'Iniciar Repositorio GitHub',
-      cmd: ['git init', 'git add .', 'git commit -m "Initial commit"', 'git remote add origin https://github.com/USER/REPOSITORY.git', 'git push -u origin master']
-    },
-    {
-      lang: 'react',
-      title: 'Crear proyecto',
-      cmd: ['npx create-react-app my-app', 'cd my-app', 'npm start']
-    },
-    {
-      lang: 'vue',
-      title: 'Ejecutar servidor local',
-      cmd: ['npm run serve']
-    },
-    {
-      lang: 'firebase',
-      title: 'Iniciar Firebase',
-      cmd: ['firebase init', 'firebase login']
-    },
-    {
-      lang: 'vue',
-      title: 'Ejecutar servidor local',
-      cmd: ['npm run serve']
-    },
-    {
-      lang: 'firebase',
-      title: 'Deploy Hosting',
-      cmd: ['firebase deploy']
-    },
-    {
-      lang: 'terminal',
-      title: 'Buscar Aplicaciones con Snap',
-      cmd: ['snap search appname']
-    },
-    {
-      lang: 'terminal',
-      title: 'Ver si está instalado el demon Snap',
-      cmd: ['sudo systemctl status snapd']
-    },
-    {
-      lang: 'terminal',
-      title: 'Instalar app con Snap',
-      cmd: ['sudo snap install appname']
-    },
-    {
-      lang: 'terminal',
-      title: 'Actualizar app con Snap',
-      cmd: ['snap refresh']
-    },
-    {
-      lang: 'terminal',
-      title: 'Eliminar app con Snap',
-      cmd: ['sudo snap remove appname']
-    },
-  ]
 
+  //State
   const [data, setData] = useState(() => array)
+  const [addCode, setAddCode] = useState(() => false)
 
+  //Variables
+  const languages = data.map(element => element.lang)
+  const lang = [...new Set(languages)]
+  
+  //Functions
   const handleInputChange = (event) => {
     let valor = event.target.value
-    setData(array.filter(element => element.lang.toLowerCase().includes(valor.toLowerCase()) || element.title.toLowerCase().includes(valor.toLowerCase())))
+    setData(data.filter(element => element.lang.toLowerCase().includes(valor.toLowerCase()) || element.title.toLowerCase().includes(valor.toLowerCase())))
   }
-  
+  const clickSearch = () => setAddCode(!addCode)
+  const addCodeLine = (event) => (event.target) 
+
+
+  //Components
+  const AddBox = () => (
+    <div className="code-container">
+      <p>
+        <input className="search" type="text" placeholder="Qué hace el código?"/>
+        <select>
+          {
+            lang.map((element, index) => {
+              return(
+                <option key={index}>{element}</option>
+              )
+            })
+          }
+        </select>
+        <button>Guardar</button>
+      </p>
+      <div className="code-panel">
+        <input className="code-lines" type="text" placeholder="línea de código"/>
+        <br/>
+        <button onClick={addCodeLine}>+</button>
+      </div>
+    </div>
+  )
+
   return (
     <Fragment>
       <nav className="nav-bar">
         <input
           autoFocus
+          className="search"
           onChange={handleInputChange}
           name="search"
           placeholder="Buscar"
           type="search"
-        />
+          />
+        <button
+          className="add"
+          onClick={clickSearch}
+          >
+          +
+        </button>
       </nav>
 
       <section>
+        { addCode ? <AddBox /> : null }
         {
           data.map((element, i) => {
             return(
@@ -90,7 +75,7 @@ function App() {
                 >
                 <p><b>{element.title}</b> <img className="logo" alt={element.lang} src={require(`./assets/${element.lang}.svg`)}/> {element.lang}</p>
                 <div className="code-panel">
-                { 
+                {
                   element.cmd.map((sub, subindex) =>
                     <pre
                       className="code-lines"
