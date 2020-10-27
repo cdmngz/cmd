@@ -6,43 +6,48 @@ function App() {
 
   //State
   const [data, setData] = useState(() => array)
-  const [addCode, setAddCode] = useState(() => false)
+  const [addCode, setAddCode] = useState(() => true)
+  const [code, setCode] = useState({title: '', lang: '', code: ''})
 
   //Variables
-  const languages = data.map(element => element.lang)
+  const languages = array.map(element => element.lang)
   const lang = [...new Set(languages)]
   
   //Functions
   const handleInputChange = (event) => {
-    let valor = event.target.value
-    console.log(valor);
-    setData(array.filter(element => element.lang.toLowerCase().includes(valor.toLowerCase()) || element.title.toLowerCase().includes(valor.toLowerCase())))
+    const { value } = event.target
+    setData(array.filter(element => element.lang.toLowerCase().includes(value.toLowerCase()) || element.title.toLowerCase().includes(value.toLowerCase())))
   }
   const clickSearch = () => setAddCode(!addCode)
-  const addCodeLine = (event) => (event.target) 
+  const saveCode = () => {
+    const title = document.querySelector('#title').value
+    const lang = document.querySelector('#lang').value
+    const code = document.querySelector('#code').value
+    console.log(title, lang, code);
+    setCode({title: title, lang: lang, code: code})
+  }
 
 
   //Components
   const AddBox = () => (
     <div className="code-container">
       <p>
-        <input className="search" type="text" placeholder="Qué hace el código?"/>
-        <select>
+        <input id="title" className="search" type="text" placeholder="Qué hace el código?"/>
+        <select id="lang">
           {
             lang.map((element, index) => {
               return(
-                <option key={index}>{element}</option>
+                <option key={index} value={code.lang = element}>{element}</option>
               )
             })
           }
         </select>
-        <button>Guardar</button>
       </p>
       <div className="code-panel">
-        <input className="code-lines" type="text" placeholder="línea de código"/>
+        <input id="code" className="code-lines" type="text" placeholder="línea de código"/>
         <br/>
-        <button onClick={addCodeLine}>+</button>
       </div>
+        <button onClick={saveCode}>Guardar</button>
     </div>
   )
 
