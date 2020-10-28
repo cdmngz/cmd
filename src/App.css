@@ -55,8 +55,8 @@ button:active {
   color: #303030;
 }
 .code-container.terminal {
-  background-color: #191715;
-  color: #e1e3e8;
+  background-color: #6b6b6b;
+  color: white;
 }
 .code-panel {
   border-radius: 10px;
@@ -90,7 +90,15 @@ button:active {
   width: 40%;
 }
 .save-button {
+  background-color: lightgreen;
   cursor: pointer;
   margin-bottom: 15px;
+  width: 85px;
+}
+.cancel-button {
+  background-color: #e8b4b4;
+  cursor: pointer;
+  margin-bottom: 15px;
+  margin-left: 10px;
   width: 85px;
 }

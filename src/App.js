@@ -1,62 +1,65 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import './App.css';
 import { db } from './index'
-import array from './Data'
 
 function App() {
 
-  
-  //State
-  const [data, setData] = useState(() => array)
+  //Hooks
+  const [data, setData] = useState(() => [])
+  const [showData, setShowData] = useState(() => [])
   const [addCode, setAddCode] = useState(() => false)
+  useEffect(() => {
+    loadData()
+  }, [])
 
   //Variables
-  const languages = array.map(element => element.lang)
+  const languages = data.map(element => element.lang)
   const lang = [...new Set(languages)]
   
   //Functions
   const handleInputChange = (event) => {
     const { value } = event.target
-    setData(array.filter(element => element.lang.toLowerCase().includes(value.toLowerCase()) || element.title.toLowerCase().includes(value.toLowerCase())))
+    setShowData(data.filter(element => element.lang.toLowerCase().includes(value.toLowerCase()) || element.title.toLowerCase().includes(value.toLowerCase())))
   }
-  const clickAgregar = () => {
+  const showAddPanel = () => {
     setAddCode(!addCode)
+  }
+
+  //Firebase
+  const loadData = async () => {
+    let temp = []
+    await db.collection("code").orderBy("lang").get()
+      .then(res => {
+        res.forEach(element => {
+          temp.push(element.data())
+        })
+        setData(() => temp)
+        setShowData(() => temp)
+      })
+      .catch(e => console.log(e))
   }
   const saveCode = async () => {
     const title = document.querySelector('#title').value
     const lang = document.querySelector('#lang').value
     let code = document.querySelector('#code').value.split()
-    console.log(code);
     await db.collection("code").add({
       title: title,
       lang: lang,
-      code: code
+      code: code,
+      click: 1
     })
       .then(() => {
-        console.log('Dato Agregado')
         setAddCode(() => false)
         loadData()
-      })
-      .catch(e => console.log(e))
-  }
-  const loadData = async () => {
-    let temp = []
-    await db.collection("code").get()
-      .then(res => {
-        res.forEach(element => {
-          temp.push(element.data())
-        })
-        console.log(temp)
-        setData(() => temp)
       })
       .catch(e => console.log(e))
   }
 
   //Components
   const AddBox = () => (
-    <div className="code-container">
+    <div className={"code-container "}>
       <p>
-        <input id="title" className="add-title" type="text" placeholder="Qué hace el código?" required/>
+        <input id="title" className="add-title" type="text" placeholder="Qué hace el código?" required={true}/>
         <select id="lang" className="add-lang">
           {
             lang.map((element, index) => {
@@ -72,9 +75,11 @@ function App() {
         <br/>
       </div>
         <button className="save-button" onClick={saveCode}>Guardar</button>
+        <button className="cancel-button" onClick={showAddPanel}>Cancelar</button>
     </div>
   )
 
+  //App
   return (
     <Fragment>
       <nav className="nav-bar">
@@ -87,17 +92,18 @@ function App() {
           type="search"
           />
         <button
-          onClick={clickAgregar}
+          onClick={showAddPanel}
           >
           Agregar
         </button>
       </nav>
 
       <section>
-        { addCode ? <AddBox /> : null }
         {
-          console.log(data)}{
-          data.map((element, i) => {
+          addCode ? <AddBox /> : null
+        }
+        {
+          showData.map((element, i) => {
             return(
               <div
                 key={i}
